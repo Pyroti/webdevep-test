@@ -1,0 +1,20 @@
+{
+  "screenTitles": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "home": "Home"
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "email": "email",
+    "password": "password",
+    "name": "name",
+    "welcome": "Welcome"
+  },
+  "home": {
+    "title": "Home Screen",
+    "notification": "Send Notification",
+    "logout": "Logout"
+  }
+}

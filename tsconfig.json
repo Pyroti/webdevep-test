@@ -1,0 +1,22 @@
+{
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "target": "es2015",
+    "jsx": "react",
+    "noEmit": true,
+    "moduleResolution": "node",
+    "types": [
+      "@types/styled-components-react-native"
+    ],
+    "baseUrl": "./src",
+    "typeRoots": ["./@types", "./node_modules/@types"],
+    "paths": {
+      "@core/*": ["core/*"],
+      "@navigators/*": ["navigators/*"],
+      "@theme/*": ["theme/*"],
+      "@pages/*": ["pages/*"],
+      "@store/*": ["store/*"]
+    }
+  }
+}
