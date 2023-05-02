@@ -1,5 +1,7 @@
 import EncryptedStorage from 'react-native-encrypted-storage';
 import {StorageKeys} from '@core/constants/storage-keys.constant';
+import {JwtToken} from '@core/interfaces/auth.interface';
+import jwt_decode from 'jwt-decode';
 
 // refresh
 export const storeRefreshToken = async (token: string): Promise<void> => {
@@ -36,11 +38,9 @@ export const getFcmToken = async (): Promise<string | null> => {
   return await EncryptedStorage.getItem(StorageKeys.fcmToken);
 };
 
-// uid
-export const storeUidToken = async (uid: string): Promise<void> => {
-  await EncryptedStorage.setItem(StorageKeys.uid, uid);
-};
-
-export const getUidToken = async (): Promise<string | null> => {
-  return await EncryptedStorage.getItem(StorageKeys.uid);
+// jwt
+export const getDecodeJwt = async (): Promise<JwtToken | null> => {
+  const jwt = (await getAccessToken()) as string;
+  const decodeJwt = jwt_decode(jwt) as JwtToken;
+  return decodeJwt;
 };

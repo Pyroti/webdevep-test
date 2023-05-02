@@ -39,3 +39,25 @@ export interface AuthSendCode {
 export interface AuthSendCodeResponse {
   ok: boolean;
 }
+
+export interface AuthRegenerateToken {
+  refreshToken: string;
+}
+
+export interface AuthRegenerateTokenResponse {
+  ok: boolean;
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface JwtToken {
+  sub: string;
+  exp: number;
+  roles: string[];
+}
+
+export interface AuthPublicKeyResponse {
+  kty: string;
+  n: string;
+  e: string;
+}

@@ -6,16 +6,19 @@ import {ActionType} from 'typesafe-actions';
 function* sendCodeRequestWorker({
   payload,
 }: ActionType<typeof sendCodeAction.request>) {
-  const data: SagaReturnType<typeof AuthService.sendCodeEmailAuth> = yield call(
-    AuthService.sendCodeEmailAuth,
-    payload,
-  );
-  if (data.ok) {
-    yield put(sendCodeAction.success(data));
-    return;
-  }
+  try {
+    const data: SagaReturnType<typeof AuthService.sendCodeEmailAuth> =
+      yield call(AuthService.sendCodeEmailAuth, payload);
 
-  yield put(sendCodeAction.failure('fail'));
+    if (data.ok) {
+      yield put(sendCodeAction.success(data));
+      return;
+    }
+
+    yield put(sendCodeAction.failure('fail'));
+  } catch {
+    yield put(sendCodeAction.failure('fail'));
+  }
 }
 
 export function* sendCodeRequestSaga() {

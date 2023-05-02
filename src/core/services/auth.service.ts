@@ -5,6 +5,9 @@ import {
   AuthLoginResponse,
   AuthLogOut,
   AuthLogOutResponse,
+  AuthPublicKeyResponse,
+  AuthRegenerateToken,
+  AuthRegenerateTokenResponse,
   AuthRegistration,
   AuthRegistrationResponse,
   AuthSendCode,
@@ -27,6 +30,24 @@ export const registrationAuth = async (
   const response = await axiosConfig.post(
     `${APP_CONFIG.AUTH_API_URL}/register`,
     data,
+  );
+  return response.data;
+};
+
+export const regenerateTokenAuth = async (
+  data: AuthRegenerateToken,
+): Promise<AuthRegenerateTokenResponse> => {
+  const response = await axiosConfig.post(
+    `${APP_CONFIG.AUTH_API_URL}/regenerateTokens`,
+    data,
+  );
+  return response.data;
+};
+
+export const getPublicKeyAuth = async (): Promise<AuthPublicKeyResponse> => {
+  const response = await axiosConfig.post(
+    `${APP_CONFIG.AUTH_API_URL}/getPublicKey`,
+    {},
   );
   return response.data;
 };

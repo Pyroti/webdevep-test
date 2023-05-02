@@ -6,14 +6,19 @@ import {ActionType} from 'typesafe-actions';
 function* regFirebaseTokenRequestWorker({
   payload,
 }: ActionType<typeof regFirebaseTokenAction.request>) {
-  const data: SagaReturnType<typeof NotyService.regFirebaseTokenNoty> =
-    yield call(NotyService.regFirebaseTokenNoty, payload);
-  if (data.ok) {
-    yield put(regFirebaseTokenAction.success(data));
-    return;
-  }
+  try {
+    const data: SagaReturnType<typeof NotyService.regFirebaseTokenNoty> =
+      yield call(NotyService.regFirebaseTokenNoty, payload);
 
-  yield put(regFirebaseTokenAction.failure('fail'));
+    if (data.ok) {
+      yield put(regFirebaseTokenAction.success(data));
+      return;
+    }
+
+    yield put(regFirebaseTokenAction.failure('fail'));
+  } catch {
+    yield put(regFirebaseTokenAction.failure('fail'));
+  }
 }
 
 export function* regFirebaseRequestSaga() {

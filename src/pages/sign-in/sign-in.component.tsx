@@ -12,11 +12,9 @@ import {AuthButton} from '@core/components/auth-button/auth-button.component';
 import {SignInForm} from '@core/types/auth';
 import {AuthLinkButton} from '@core/components/auth-button-link/auth-button-link.component';
 import {signInAction} from '@store/actions/auth';
-import {regFirebaseTokenAction} from '@store/actions/noty';
-import {getFcmToken, getUidToken} from '@core/services/encrypted.service';
+import {authStoreSelector} from '@store/selectors/auth.selector';
 
 import * as Styles from './sign-in.styles';
-import {authStoreSelector} from '@store/selectors/auth.selector';
 
 type SignInNavigation = NativeStackNavigationProp<
   AuthStackParamsList,
@@ -36,25 +34,14 @@ const SignIn: React.FC = () => {
     mode: 'onSubmit',
   });
 
-  const regFcmToken = useCallback(async () => {
-    const fcmToken = await getFcmToken();
-    const uid = await getUidToken();
-    const payload = {
-      token: fcmToken!,
-      uid: uid!,
-    };
-    dispatch(regFirebaseTokenAction.request(payload));
-  }, [dispatch]);
-
   const login = useCallback(() => {
     const payload = {
       credential: getValues('email'),
       password: getValues('password'),
       code: '111111',
     };
-    regFcmToken();
     dispatch(signInAction.request(payload));
-  }, [dispatch, getValues, regFcmToken]);
+  }, [dispatch, getValues]);
 
   const linkToLoginUp = useCallback(() => {
     navigate({name: AuthStack.SignUp, params: undefined});

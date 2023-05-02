@@ -1,7 +1,9 @@
 import {createReducer} from 'typesafe-actions';
 import {
   AuthActionUnion,
+  getPublicKeyAction,
   logoutAction,
+  regenerateTokenAction,
   sendCodeAction,
   signInAction,
   signUpAction,
@@ -78,6 +80,36 @@ export const reducer = createReducer<State, AuthActionUnion>(initialState)
     error: state.error,
   }))
   .handleAction(sendCodeAction.success, state => ({
+    ...state,
+    loading: false,
+  }))
+
+  .handleAction(regenerateTokenAction.request, state => ({
+    ...state,
+    loading: true,
+    error: null,
+  }))
+  .handleAction(regenerateTokenAction.failure, state => ({
+    ...state,
+    loading: false,
+    error: state.error,
+  }))
+  .handleAction(regenerateTokenAction.success, state => ({
+    ...state,
+    loading: false,
+  }))
+
+  .handleAction(getPublicKeyAction.request, state => ({
+    ...state,
+    loading: true,
+    error: null,
+  }))
+  .handleAction(getPublicKeyAction.failure, state => ({
+    ...state,
+    loading: false,
+    error: state.error,
+  }))
+  .handleAction(getPublicKeyAction.success, state => ({
     ...state,
     loading: false,
   }));
